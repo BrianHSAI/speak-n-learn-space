@@ -20,8 +20,6 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar";
 
-import Globe from './Globe';
-
 // Menu items
 const items = [
   {
@@ -56,8 +54,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
     <Sidebar>
       <SidebarHeader className="flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
-          <Globe className="w-10 h-10" />
-          <h1 className="text-xl font-bold text-sidebar-foreground">Lærmere.NU</h1>
+          <h1 className="text-2xl font-bold text-primary tracking-tight">Lærmere.NU</h1>
         </div>
       </SidebarHeader>
       

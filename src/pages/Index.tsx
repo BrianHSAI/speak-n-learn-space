@@ -7,7 +7,6 @@ import TextToSpeech from '@/components/sections/TextToSpeech';
 import SpeechToText from '@/components/sections/SpeechToText';
 import ReadingTraining from '@/components/sections/ReadingTraining';
 import ReadingPlanning from '@/components/sections/ReadingPlanning';
-import Globe from '@/components/Globe';
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('text-to-speech');
@@ -36,8 +35,9 @@ const Index = () => {
           <div className="container mx-auto">
             <div className="flex justify-between items-center mb-8">
               <SidebarTrigger className="md:hidden" />
-              <div className="flex-1" />
-              <Globe className="hidden md:block" />
+              <div className="flex-1 md:text-center">
+                <h1 className="text-3xl font-bold text-primary tracking-tight">Lærmere.NU</h1>
+              </div>
             </div>
             
             <div className="grid grid-cols-1 gap-8">
