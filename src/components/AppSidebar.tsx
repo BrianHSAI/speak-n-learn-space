@@ -54,7 +54,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
     <Sidebar>
       <SidebarHeader className="flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold text-primary tracking-tight">Lærmere.NU</h1>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-sidebar-primary to-blue-500 bg-clip-text text-transparent tracking-tight">Lærmere</h1>
         </div>
       </SidebarHeader>
       
@@ -80,7 +80,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
       </SidebarContent>
       
       <SidebarFooter className="p-4">
-        <p className="text-xs text-sidebar-foreground/70">© 2025 Lærmere.NU</p>
+        <p className="text-xs text-sidebar-foreground/70">© 2025 Lærmere</p>
       </SidebarFooter>
     </Sidebar>
   );

@@ -36,7 +36,7 @@ const Index = () => {
             <div className="flex justify-between items-center mb-8">
               <SidebarTrigger className="md:hidden" />
               <div className="flex-1 md:text-center">
-                <h1 className="text-3xl font-bold text-primary tracking-tight">Lærmere.NU</h1>
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">Lærmere</h1>
               </div>
             </div>
             
