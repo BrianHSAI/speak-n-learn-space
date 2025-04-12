@@ -29,7 +29,7 @@ const Index = () => {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex flex-col md:flex-row w-full">
+      <div className="min-h-screen flex flex-col md:flex-row w-full bg-gradient-to-br from-slate-50 to-blue-50 dark:from-slate-900 dark:to-blue-900">
         <AppSidebar activeSection={activeSection} onSectionChange={setActiveSection} />
         
         <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-auto">
@@ -42,7 +42,9 @@ const Index = () => {
             
             <div className="grid grid-cols-1 gap-8">
               <VideoSection />
-              {renderSection()}
+              <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-lg shadow-xl border border-blue-100 dark:border-blue-900 p-4">
+                {renderSection()}
+              </div>
             </div>
           </div>
         </main>

@@ -104,6 +104,7 @@
     @apply w-full h-full rounded-full bg-gradient-to-br from-blue-300 to-blue-600 animate-pulse-globe;
     position: relative;
     overflow: hidden;
+    filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.5));
   }
   
   .globe::before {
@@ -129,4 +130,78 @@
       radial-gradient(circle at 70% 60%, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 60%);
     animation: rotate-globe 25s linear infinite reverse;
   }
+  
+  .fluid-element {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    filter: blur(8px);
+  }
+  
+  .fluid-element-1 {
+    width: 80%;
+    height: 80%;
+    top: -20%;
+    left: -20%;
+    background: radial-gradient(circle at center, rgba(191, 219, 254, 0.6) 0%, rgba(59, 130, 246, 0) 70%);
+    animation: float-1 8s ease-in-out infinite;
+  }
+  
+  .fluid-element-2 {
+    width: 60%;
+    height: 60%;
+    bottom: -10%;
+    right: -10%;
+    background: radial-gradient(circle at center, rgba(147, 197, 253, 0.6) 0%, rgba(59, 130, 246, 0) 70%);
+    animation: float-2 12s ease-in-out infinite;
+  }
+  
+  .fluid-element-3 {
+    width: 40%;
+    height: 40%;
+    bottom: 30%;
+    left: 10%;
+    background: radial-gradient(circle at center, rgba(96, 165, 250, 0.6) 0%, rgba(59, 130, 246, 0) 70%);
+    animation: float-3 10s ease-in-out infinite;
+  }
+  
+  @keyframes float-1 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(15%, 15%) scale(1.1); }
+  }
+  
+  @keyframes float-2 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(-15%, -10%) scale(1.15); }
+  }
+  
+  @keyframes float-3 {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(10%, -10%) scale(1.1); }
+    66% { transform: translate(-10%, 10%) scale(0.9); }
+  }
+}
+
+@keyframes pulse-globe {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+@keyframes rotate-globe {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-pulse-globe {
+  animation: pulse-globe 3s ease-in-out infinite;
+}
+
+.animate-rotate-globe {
+  animation: rotate-globe 20s linear infinite;
 }
