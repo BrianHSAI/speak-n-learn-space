@@ -2,13 +2,12 @@
 import React, { useState } from 'react';
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from '@/components/AppSidebar';
-import VideoSection from '@/components/VideoSection';
 import TextToSpeech from '@/components/sections/TextToSpeech';
 import SpeechToText from '@/components/sections/SpeechToText';
 import ReadingTraining from '@/components/sections/ReadingTraining';
-import ReadingPlanning from '@/components/sections/ReadingPlanning';
+import ReadingPlanner from '@/components/sections/ReadingPlanning';
 
-const Index = () => {
+const App = () => {
   const [activeSection, setActiveSection] = useState('text-to-speech');
 
   const renderSection = () => {
@@ -20,7 +19,7 @@ const Index = () => {
       case 'reading-training':
         return <ReadingTraining />;
       case 'reading-planning':
-        return <ReadingPlanning />;
+        return <ReadingPlanner />;
       default:
         return <TextToSpeech />;
     }
@@ -35,13 +34,14 @@ const Index = () => {
           <div className="container mx-auto">
             <div className="flex justify-between items-center mb-8">
               <SidebarTrigger className="md:hidden" />
-              <div className="flex-1 md:text-center">
-                <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">Lærmere</h1>
+              <div className="flex-1 text-center">
+                <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-400 bg-clip-text text-transparent">
+                  Lærmere
+                </h1>
               </div>
             </div>
             
             <div className="grid grid-cols-1 gap-8">
-              <VideoSection />
               <div className="bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-lg shadow-xl border border-blue-100 dark:border-blue-900 p-4">
                 {renderSection()}
               </div>
@@ -53,4 +53,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default App;
