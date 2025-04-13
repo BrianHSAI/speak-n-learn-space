@@ -32,15 +32,13 @@ const App = () => {
         
         <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-auto">
           <div className="container mx-auto">
-            <div className="flex justify-between items-center mb-8">
+            <div className="flex items-center mb-8">
               <SidebarTrigger className="md:hidden" />
-              <div className="flex-1 flex justify-center">
-                <img 
-                  src="/lovable-uploads/4ef34a8b-ee97-4307-9322-4bafa1bc1d52.png" 
-                  alt="Lærmere.nu Logo" 
-                  className="h-10 md:h-12"
-                />
-              </div>
+              <img 
+                src="/lovable-uploads/0231c664-6b5c-457c-ae03-bc59f9ae098c.png" 
+                alt="Lærmere.nu Logo" 
+                className="h-14 md:h-16"
+              />
             </div>
             
             <div className="grid grid-cols-1 gap-8">

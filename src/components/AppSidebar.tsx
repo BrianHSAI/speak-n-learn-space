@@ -4,8 +4,10 @@ import {
   Mic, 
   MessageSquareText, 
   BookOpen, 
-  CalendarClock 
+  CalendarClock,
+  Home
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 import {
   Sidebar,
@@ -54,11 +56,34 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
     <Sidebar>
       <SidebarHeader className="flex items-center justify-between p-4">
         <div className="flex items-center gap-3">
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-sidebar-primary to-blue-500 bg-clip-text text-transparent tracking-tight">Lærmere</h1>
+          <img 
+            src="/lovable-uploads/0231c664-6b5c-457c-ae03-bc59f9ae098c.png" 
+            alt="Lærmere Logo" 
+            className="h-8"
+          />
         </div>
       </SidebarHeader>
       
       <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton
+                  asChild
+                  className={activeSection === '' ? "bg-sidebar-accent" : ""}
+                >
+                  <Link to="/">
+                    <Home className="mr-2" size={20} />
+                    <span>Forside</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        
         <SidebarGroup>
           <SidebarGroupLabel>Platform</SidebarGroupLabel>
           <SidebarGroupContent>
@@ -66,11 +91,13 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
               {items.map((item) => (
                 <SidebarMenuItem key={item.id}>
                   <SidebarMenuButton 
-                    onClick={() => onSectionChange(item.id)}
+                    asChild
                     className={activeSection === item.id ? "bg-sidebar-accent" : ""}
                   >
-                    <item.icon className="mr-2" size={20} />
-                    <span>{item.title}</span>
+                    <Link to="/app" onClick={() => onSectionChange(item.id)}>
+                      <item.icon className="mr-2" size={20} />
+                      <span>{item.title}</span>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
