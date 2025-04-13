@@ -34,10 +34,12 @@ const App = () => {
           <div className="container mx-auto">
             <div className="flex justify-between items-center mb-8">
               <SidebarTrigger className="md:hidden" />
-              <div className="flex-1 text-center">
-                <h1 className="text-3xl md:text-4xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-400 bg-clip-text text-transparent">
-                  Lærmere
-                </h1>
+              <div className="flex-1 flex justify-center">
+                <img 
+                  src="/lovable-uploads/4ef34a8b-ee97-4307-9322-4bafa1bc1d52.png" 
+                  alt="Lærmere.nu Logo" 
+                  className="h-10 md:h-12"
+                />
               </div>
             </div>
             

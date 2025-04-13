@@ -14,9 +14,11 @@ const Welcome = () => {
       <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-auto">
         <div className="container mx-auto">
           <div className="flex justify-center mb-12 pt-8">
-            <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-500 dark:to-indigo-400 bg-clip-text text-transparent">
-              Lærmere
-            </h1>
+            <img 
+              src="/lovable-uploads/4ef34a8b-ee97-4307-9322-4bafa1bc1d52.png" 
+              alt="Lærmere.nu Logo" 
+              className="h-16 md:h-20"
+            />
           </div>
           
           <div className="max-w-3xl mx-auto">
