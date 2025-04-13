@@ -18,7 +18,7 @@ const Home = () => {
               <img 
                 src="/lovable-uploads/0231c664-6b5c-457c-ae03-bc59f9ae098c.png" 
                 alt="Lærmere.nu Logo" 
-                className="h-14 md:h-16"
+                className="h-24 md:h-32 lg:h-40"
               />
             </div>
             
@@ -27,19 +27,15 @@ const Home = () => {
                 <h2 className="text-2xl font-semibold mb-4">Velkommen</h2>
                 
                 <div className="aspect-video rounded-lg bg-black/5 dark:bg-black/20 border border-blue-100 dark:border-blue-800 overflow-hidden mb-6">
-                  <div className="flex items-center justify-center h-full">
-                    <div className="text-center p-8 w-full">
-                      <h3 className="text-xl font-medium mb-2">Introduktionsvideo</h3>
-                      <p className="text-muted-foreground">
-                        Se vores introduktionsvideo for at komme i gang
-                      </p>
-                      <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors flex items-center mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                        </svg>
-                        Afspil video
-                      </button>
-                    </div>
+                  <div className="flex items-center justify-center h-full w-full">
+                    <iframe 
+                      className="w-full h-full"
+                      src="https://www.youtube.com/embed/KgTpA3mKPuI" 
+                      title="Introduktionsvideo" 
+                      frameBorder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      allowFullScreen
+                    ></iframe>
                   </div>
                 </div>
               </div>
@@ -52,4 +48,3 @@ const Home = () => {
 };
 
 export default Home;
-
