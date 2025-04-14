@@ -1,10 +1,25 @@
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Calendar } from 'lucide-react';
+import { Calendar, Trash2 } from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useToast } from '@/hooks/use-toast';
 
 const StudentCalendar = () => {
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const { toast } = useToast();
+  const [deleteActivityId, setDeleteActivityId] = useState<string | null>(null);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   useEffect(() => {
     if (iframeRef.current) {
@@ -899,6 +914,22 @@ const StudentCalendar = () => {
     </div>
   </div>
   
+  <!-- Dialog til at bekræfte sletning -->
+  <div class="dialog-backdrop" id="delete-confirm-dialog">
+    <div class="dialog">
+      <div class="dialog-header">
+        <h3 class="dialog-title">Bekræft sletning</h3>
+      </div>
+      <div class="dialog-content">
+        <p style="margin-bottom: 1rem;">Er du sikker på, at du vil slette denne aktivitet?</p>
+        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+          <button class="btn btn-secondary" id="cancel-delete-btn">Annuller</button>
+          <button class="btn btn-danger" id="confirm-delete-btn">Slet aktivitet</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   <script>
     // Aktivitetstyper
     const ActivityType = {
@@ -923,7 +954,8 @@ const StudentCalendar = () => {
         { id: '7', time: '08:30', title: 'Engelsk', type: ActivityType.LESSON, date: formatDate(addDays(new Date(), 1)), completed: false },
         { id: '8', time: '10:15', title: 'Idræt', type: ActivityType.LESSON, date: formatDate(addDays(new Date(), 1)), completed: false }
       ],
-      editingActivity: null
+      editingActivity: null,
+      deleteActivityId: null
     };
     
     // DOM elementer
@@ -950,7 +982,10 @@ const StudentCalendar = () => {
       saveActivityBtn: document.getElementById('save-activity-btn'),
       printDayBtn: document.getElementById('print-day-btn'),
       printWeekBtn: document.getElementById('print-week-btn'),
-      printMonthBtn: document.getElementById('print-month-btn')
+      printMonthBtn: document.getElementById('print-month-btn'),
+      deleteConfirmDialog: document.getElementById('delete-confirm-dialog'),
+      cancelDeleteBtn: document.getElementById('cancel-delete-btn'),
+      confirmDeleteBtn: document.getElementById('confirm-delete-btn')
     };
     
     // Hjælpefunktioner til datoer
@@ -1116,7 +1151,7 @@ const StudentCalendar = () => {
       document.querySelectorAll('.delete-activity').forEach(button => {
         button.addEventListener('click', () => {
           const id = button.getAttribute('data-id');
-          deleteActivity(id);
+          confirmDeleteActivity(id);
         });
       });
       
@@ -1255,9 +1290,53 @@ const StudentCalendar = () => {
       }
     }
     
-    function deleteActivity(id) {
-      state.activities = state.activities.filter(activity => activity.id !== id);
-      renderCalendar();
+    function confirmDeleteActivity(id) {
+      state.deleteActivityId = id;
+      elements.deleteConfirmDialog.style.display = 'flex';
+    }
+    
+    function deleteActivity() {
+      if (state.deleteActivityId) {
+        const activityToDelete = state.activities.find(a => a.id === state.deleteActivityId);
+        state.activities = state.activities.filter(activity => activity.id !== state.deleteActivityId);
+        closeDeleteConfirmDialog();
+        renderCalendar();
+        
+        // Vis feedback besked
+        const feedbackMsg = document.createElement('div');
+        feedbackMsg.className = 'toast-message';
+        feedbackMsg.style.position = 'fixed';
+        feedbackMsg.style.top = '1rem';
+        feedbackMsg.style.right = '1rem';
+        feedbackMsg.style.backgroundColor = 'rgba(34, 197, 94, 0.9)';
+        feedbackMsg.style.color = 'white';
+        feedbackMsg.style.padding = '0.75rem 1rem';
+        feedbackMsg.style.borderRadius = 'var(--radius)';
+        feedbackMsg.style.boxShadow = 'var(--shadow-md)';
+        feedbackMsg.style.zIndex = '100';
+        feedbackMsg.style.maxWidth = '300px';
+        feedbackMsg.style.transition = 'all 0.3s ease';
+        feedbackMsg.innerHTML = \`
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <i class="lucide-check-circle" style="color: white;"></i>
+            <span>Aktivitet "${activityToDelete?.title || ''}" blev slettet</span>
+          </div>
+        \`;
+        
+        document.body.appendChild(feedbackMsg);
+        
+        setTimeout(() => {
+          feedbackMsg.style.opacity = '0';
+          setTimeout(() => {
+            document.body.removeChild(feedbackMsg);
+          }, 300);
+        }, 3000);
+      }
+    }
+    
+    function closeDeleteConfirmDialog() {
+      elements.deleteConfirmDialog.style.display = 'none';
+      state.deleteActivityId = null;
     }
     
     function toggleActivityCompleted(id) {
@@ -1433,6 +1512,16 @@ const StudentCalendar = () => {
       }
     });
     
+    // Delete confirmation event listeners
+    elements.cancelDeleteBtn.addEventListener('click', closeDeleteConfirmDialog);
+    elements.confirmDeleteBtn.addEventListener('click', deleteActivity);
+    
+    elements.deleteConfirmDialog.addEventListener('click', (e) => {
+      if (e.target === elements.deleteConfirmDialog) {
+        closeDeleteConfirmDialog();
+      }
+    });
+    
     // Udskriftsknapper
     elements.printDayBtn.addEventListener('click', printDay);
     elements.printWeekBtn.addEventListener('click', printWeek);
@@ -1470,6 +1559,35 @@ const StudentCalendar = () => {
           />
         </CardContent>
       </Card>
+      
+      {/* Dette er en forbindelse til React applikationen, men er skjult og bruges ikke direkte */}
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Er du sikker?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Denne handling kan ikke fortrydes. Dette vil permanent slette aktiviteten.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setDeleteActivityId(null)}>Annuller</AlertDialogCancel>
+            <AlertDialogAction onClick={() => {
+              // Dette bruges ikke direkte, da sletningen håndteres i iframe'en
+              if (deleteActivityId) {
+                setDeleteActivityId(null);
+                toast({
+                  title: "Aktivitet slettet",
+                  description: "Aktiviteten er blevet slettet permanent.",
+                });
+              }
+              setIsDeleteDialogOpen(false);
+            }}>
+              <Trash2 className="h-4 w-4 mr-2" />
+              Slet
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
