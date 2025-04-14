@@ -1,24 +1,29 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { MessageSquareText, Play, Pause, Square, Info } from 'lucide-react';
+import { MessageSquareText, Play, Pause, Square, Info, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Select } from '@/components/ui/select';
 import { Slider } from '@/components/ui/slider';
+import { Switch } from '@/components/ui/switch';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const TextToSpeech = () => {
   const [text, setText] = useState("Velkommen til tekstoplæseren. Dette er et eksempel på tekst, der kan læses højt. Du kan skrive eller indsætte din egen tekst her.");
   const [selectedLanguage, setSelectedLanguage] = useState("da-DK");
   const [selectedVoice, setSelectedVoice] = useState("");
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
+  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [isReading, setIsReading] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState("Klar til at læse");
   const [isStatusActive, setIsStatusActive] = useState(false);
   const [rate, setRate] = useState(1.0);
+  const [noVoicesForLanguage, setNoVoicesForLanguage] = useState(false);
 
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const wordsRef = useRef<string[]>([]);
@@ -75,9 +80,13 @@ const TextToSpeech = () => {
       voice.lang.startsWith(language.split('-')[0])
     );
     
+    setAvailableVoices(languageVoices);
+    setNoVoicesForLanguage(languageVoices.length === 0);
+    
     if (languageVoices.length > 0) {
       setSelectedVoice(languageVoices[0].name);
     } else if (availableVoices.length > 0) {
+      // If no voices for selected language, fallback to any available voice
       setSelectedVoice(availableVoices[0].name);
     }
   };
@@ -327,18 +336,29 @@ const TextToSpeech = () => {
               >
                 {voices.length === 0 ? (
                   <option value="">Indlæser stemmer...</option>
+                ) : availableVoices.length > 0 ? (
+                  availableVoices.map(voice => (
+                    <option key={voice.name} value={voice.name}>
+                      {`${voice.name} (${voice.lang})`}
+                    </option>
+                  ))
                 ) : (
-                  voices
-                    .filter(voice => voice.lang.startsWith(selectedLanguage.split('-')[0]) || voices.length <= 1)
-                    .map(voice => (
-                      <option key={voice.name} value={voice.name}>
-                        {`${voice.name} (${voice.lang})`}
-                      </option>
-                    ))
+                  <option value="">Ingen stemmer fundet for dette sprog</option>
                 )}
               </select>
             </div>
           </div>
+
+          {noVoicesForLanguage && (
+            <Alert variant="destructive" className="mt-2">
+              <AlertTriangle className="h-4 w-4" />
+              <AlertTitle>Ingen stemmer fundet</AlertTitle>
+              <AlertDescription>
+                Din browser har ikke stemmer for {selectedLanguage === 'uk-UA' ? 'Ukrainsk' : 'det valgte sprog'}. 
+                Prøv et andet sprog eller en anden browser.
+              </AlertDescription>
+            </Alert>
+          )}
 
           <div className="space-y-2">
             <Label htmlFor="rateSlider">Tempo:</Label>
