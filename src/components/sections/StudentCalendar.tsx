@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar, Trash2 } from 'lucide-react';
@@ -23,7 +22,6 @@ const StudentCalendar = () => {
 
   useEffect(() => {
     if (iframeRef.current) {
-      // The calendar code will be injected into the iframe
       const doc = iframeRef.current.contentDocument || iframeRef.current.contentWindow?.document;
       
       if (doc) {
@@ -1574,11 +1572,11 @@ const StudentCalendar = () => {
             <AlertDialogAction onClick={() => {
               // Dette bruges ikke direkte, da sletningen håndteres i iframe'en
               if (deleteActivityId) {
-                setDeleteActivityId(null);
                 toast({
                   title: "Aktivitet slettet",
                   description: "Aktiviteten er blevet slettet permanent.",
                 });
+                setDeleteActivityId(null);
               }
               setIsDeleteDialogOpen(false);
             }}>
