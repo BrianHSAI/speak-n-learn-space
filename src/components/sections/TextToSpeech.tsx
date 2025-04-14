@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { MessageSquareText, Play, Pause, Square, Info } from 'lucide-react';
@@ -7,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Select } from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
 
 const TextToSpeech = () => {
   const [text, setText] = useState("Velkommen til tekstoplæseren. Dette er et eksempel på tekst, der kan læses højt. Du kan skrive eller indsætte din egen tekst her.");
@@ -18,7 +18,8 @@ const TextToSpeech = () => {
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState("Klar til at læse");
   const [isStatusActive, setIsStatusActive] = useState(false);
-  
+  const [rate, setRate] = useState(1.0);
+
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const wordsRef = useRef<string[]>([]);
   const currentWordIndexRef = useRef(0);
@@ -28,6 +29,19 @@ const TextToSpeech = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       synthRef.current = window.speechSynthesis;
+      
+      // Fix for Chrome: Initialize the synthesizer
+      if (synthRef.current) {
+        try {
+          // Trigger initialization with an empty utterance
+          const dummyUtterance = new SpeechSynthesisUtterance('');
+          synthRef.current.speak(dummyUtterance);
+          synthRef.current.cancel();
+        } catch (e) {
+          console.error("Error initializing speech synthesis:", e);
+        }
+      }
+      
       initVoices();
     }
   }, []);
@@ -92,6 +106,7 @@ const TextToSpeech = () => {
     // Create a new utterance
     utteranceRef.current = new SpeechSynthesisUtterance(text);
     utteranceRef.current.lang = selectedLanguage;
+    utteranceRef.current.rate = rate;
     
     // Set selected voice if available
     if (selectedVoice) {
@@ -146,25 +161,23 @@ const TextToSpeech = () => {
     try {
       synthRef.current.speak(utteranceRef.current);
       
-      // Force speaking to start (workaround for some browsers)
+      // Force starting speech for Chrome
       if (synthRef.current.paused) {
         synthRef.current.resume();
       }
       
-      // Check if speaking started
-      setTimeout(() => {
-        if (synthRef.current && !synthRef.current.speaking) {
-          // Try alternative approach
-          synthRef.current.cancel();
-          setTimeout(() => {
-            if (utteranceRef.current && synthRef.current) {
-              synthRef.current.speak(utteranceRef.current);
-            }
-          }, 100);
-        }
-      }, 250);
+      // Additional checking for Chrome
+      if (!synthRef.current.speaking && !synthRef.current.pending) {
+        // Try alternative approach for Chrome
+        setTimeout(() => {
+          if (utteranceRef.current && synthRef.current) {
+            synthRef.current.speak(utteranceRef.current);
+          }
+        }, 100);
+      }
       
     } catch (e) {
+      console.error("Speech synthesis error:", e);
       updateStatus("Fejl ved start af oplæsning", false);
     }
   };
@@ -247,6 +260,16 @@ const TextToSpeech = () => {
     }
   };
 
+  const handleRateChange = (value: number[]) => {
+    setRate(value[0]);
+    
+    // If currently reading, update the rate
+    if (isReading && utteranceRef.current) {
+      stopReading();
+      setTimeout(() => readText(), 100);
+    }
+  };
+
   return (
     <Card className="w-full shadow-lg border-0">
       <CardHeader className="flex flex-row items-center gap-4 pb-2">
@@ -268,6 +291,7 @@ const TextToSpeech = () => {
                 onChange={(e) => setSelectedLanguage(e.target.value)}
               >
                 <option value="da-DK">Dansk</option>
+                <option value="uk-UA">Українська (Ukrainsk)</option>
                 <option value="en-US">Engelsk</option>
                 <option value="de-DE">Tysk</option>
                 <option value="fr-FR">Fransk</option>
@@ -313,6 +337,25 @@ const TextToSpeech = () => {
                     ))
                 )}
               </select>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="rateSlider">Tempo:</Label>
+            <div className="flex items-center gap-4">
+              <span className="text-sm">Langsom</span>
+              <Slider 
+                id="rateSlider" 
+                min={0.5} 
+                max={2} 
+                step={0.1} 
+                defaultValue={[1.0]} 
+                value={[rate]}
+                onValueChange={handleRateChange} 
+                className="flex-1" 
+              />
+              <span className="text-sm">Hurtig</span>
+              <span className="ml-2 text-sm font-medium w-12 text-center">{rate.toFixed(1)}x</span>
             </div>
           </div>
 

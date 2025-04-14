@@ -17,6 +17,7 @@ const SpeechToText = () => {
   // Language options
   const languages = [
     { code: "da-DK", name: "Dansk" },
+    { code: "uk-UA", name: "Українська (Ukrainsk)" },
     { code: "en-US", name: "English (US)" },
     { code: "en-GB", name: "English (UK)" },
     { code: "sv-SE", name: "Svenska" },
