@@ -9,7 +9,7 @@ import {
   Calendar,
   FileText
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {
   Sidebar,
@@ -64,6 +64,17 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) {
+  const navigate = useNavigate();
+  
+  const handleNavigation = (sectionId: string) => {
+    // If not already on the app page, navigate there first
+    if (window.location.pathname !== '/app') {
+      navigate('/app');
+    }
+    // Then change the section
+    onSectionChange(sectionId);
+  };
+
   return (
     <Sidebar>
       <SidebarHeader className="flex items-center justify-between p-4">
@@ -106,7 +117,7 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
                     asChild
                     className={activeSection === item.id ? "bg-sidebar-accent" : ""}
                   >
-                    <button onClick={() => onSectionChange(item.id)}>
+                    <button onClick={() => handleNavigation(item.id)}>
                       <item.icon className="mr-2" size={20} />
                       <span>{item.title}</span>
                     </button>
