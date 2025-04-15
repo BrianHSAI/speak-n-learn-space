@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Mic, 
@@ -6,7 +5,8 @@ import {
   BookOpen, 
   CalendarClock,
   Home,
-  Calendar
+  Calendar,
+  FileText
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -49,6 +49,11 @@ const items = [
     title: "Elevkalender",
     icon: Calendar,
     id: "student-calendar"
+  },
+  {
+    title: "Opgaveplanlægger",
+    icon: FileText,
+    id: "task-planner"
   }
 ];
 
