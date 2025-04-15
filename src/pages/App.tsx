@@ -6,6 +6,7 @@ import TextToSpeech from '@/components/sections/TextToSpeech';
 import SpeechToText from '@/components/sections/SpeechToText';
 import ReadingTraining from '@/components/sections/ReadingTraining';
 import ReadingPlanner from '@/components/sections/ReadingPlanning';
+import StudentCalendar from '@/components/sections/StudentCalendar';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('text-to-speech');
@@ -20,6 +21,8 @@ const App = () => {
         return <ReadingTraining />;
       case 'reading-planning':
         return <ReadingPlanner />;
+      case 'student-calendar':
+        return <StudentCalendar />;
       default:
         return <TextToSpeech />;
     }

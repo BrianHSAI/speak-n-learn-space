@@ -5,7 +5,8 @@ import {
   MessageSquareText, 
   BookOpen, 
   CalendarClock,
-  Home
+  Home,
+  Calendar
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -43,6 +44,11 @@ const items = [
     title: "Læseplanlægning",
     icon: CalendarClock,
     id: "reading-planning"
+  },
+  {
+    title: "Elevkalender",
+    icon: Calendar,
+    id: "student-calendar"
   }
 ];
 
