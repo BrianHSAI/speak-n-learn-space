@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { 
   Mic, 
@@ -105,10 +106,10 @@ export function AppSidebar({ activeSection, onSectionChange }: AppSidebarProps) 
                     asChild
                     className={activeSection === item.id ? "bg-sidebar-accent" : ""}
                   >
-                    <Link to="/app" onClick={() => onSectionChange(item.id)}>
+                    <button onClick={() => onSectionChange(item.id)}>
                       <item.icon className="mr-2" size={20} />
                       <span>{item.title}</span>
-                    </Link>
+                    </button>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}
