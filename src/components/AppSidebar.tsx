@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Mic, 
@@ -7,7 +6,8 @@ import {
   CalendarClock,
   Home,
   Calendar,
-  FileText
+  FileText,
+  Focus
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -60,6 +60,11 @@ const items = [
     title: "Opgaveplanlægger",
     icon: FileText,
     id: "task-planner"
+  },
+  {
+    title: "Fokushjælper",
+    icon: Focus,
+    id: "focus-helper"
   }
 ];
 

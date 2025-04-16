@@ -9,6 +9,7 @@ import ReadingPlanner from '@/components/sections/ReadingPlanner';
 import StudentCalendar from '@/components/sections/StudentCalendar';
 import TaskPlanner from '@/components/sections/TaskPlanner';
 import HomeworkCalendar from '@/components/sections/HomeworkCalendar';
+import FocusHelper from '@/components/sections/FocusHelper';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('text-to-speech');
@@ -29,6 +30,8 @@ const App = () => {
         return <HomeworkCalendar />;
       case 'task-planner':
         return <TaskPlanner />;
+      case 'focus-helper':
+        return <FocusHelper />;
       default:
         return <TextToSpeech />;
     }
