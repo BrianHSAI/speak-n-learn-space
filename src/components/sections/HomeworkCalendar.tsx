@@ -2,7 +2,6 @@
 import React from 'react';
 
 const HomeworkCalendar = () => {
-  // Using dangerouslySetInnerHTML would be simpler but iframe with srcDoc is safer
   return (
     <iframe 
       srcDoc={`<!DOCTYPE html>
@@ -333,7 +332,7 @@ const HomeworkCalendar = () => {
           <!-- Scripts -->
           <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/core@4.4.0/main.min.js'></script>
           <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@4.4.0/main.min.js'></script>
-          <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.4.0/main.js'></script>
+          <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@4.4.0/main.min.js'></script>
           <script>
               document.addEventListener('DOMContentLoaded', function() {
                   const calendarEl = document.getElementById('calendar');
