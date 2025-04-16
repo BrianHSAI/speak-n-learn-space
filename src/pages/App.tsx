@@ -1,10 +1,11 @@
+
 import React, { useState } from 'react';
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from '@/components/AppSidebar';
 import TextToSpeech from '@/components/sections/TextToSpeech';
 import SpeechToText from '@/components/sections/SpeechToText';
 import ReadingTraining from '@/components/sections/ReadingTraining';
-import ReadingPlanner from '@/components/sections/ReadingPlanning';
+import ReadingPlanner from '@/components/sections/ReadingPlanner';
 import StudentCalendar from '@/components/sections/StudentCalendar';
 import TaskPlanner from '@/components/sections/TaskPlanner';
 import HomeworkCalendar from '@/components/sections/HomeworkCalendar';

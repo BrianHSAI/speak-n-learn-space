@@ -1,6 +1,8 @@
+
 import React from 'react';
 
 const HomeworkCalendar = () => {
+  // Using dangerouslySetInnerHTML would be simpler but iframe with srcDoc is safer
   return (
     <iframe 
       srcDoc={`<!DOCTYPE html>
@@ -384,26 +386,26 @@ const HomeworkCalendar = () => {
                       
                       events.forEach(event => {
                           const li = document.createElement('li');
-                          li.style.borderLeft = `4px solid ${event.backgroundColor || '#3498db'}`;
+                          li.style.borderLeft = \`4px solid \${event.backgroundColor || '#3498db'}\`;
                           
                           const isCompleted = event.extendedProps.completed;
                           
-                          li.innerHTML = `
-                              <div class="homework-item" style="${isCompleted ? 'text-decoration: line-through; opacity: 0.7;' : ''}">
+                          li.innerHTML = \`
+                              <div class="homework-item" style="\${isCompleted ? 'text-decoration: line-through; opacity: 0.7;' : ''}">
                                   <div class="homework-title">
-                                      <strong>${event.extendedProps.subject}</strong>: ${event.extendedProps.description}
+                                      <strong>\${event.extendedProps.subject}</strong>: \${event.extendedProps.description}
                                   </div>
                                   <div class="homework-time">
-                                      Tidspunkt: ${event.start.toLocaleTimeString('da-DK', {
+                                      Tidspunkt: \${event.start.toLocaleTimeString('da-DK', {
                                           hour: '2-digit',
                                           minute: '2-digit'
                                       })}
                                   </div>
                               </div>
-                              <button onclick="toggleHomeworkComplete('${event.id}')" 
-                                  class="complete-btn ${isCompleted ? 'completed' : ''}">
-                                  ${isCompleted ? 'Genåbn' : 'Markér færdig'}
-                              </button>`;
+                              <button onclick="toggleHomeworkComplete('\${event.id}')" 
+                                  class="complete-btn \${isCompleted ? 'completed' : ''}">
+                                  \${isCompleted ? 'Genåbn' : 'Markér færdig'}
+                              </button>\`;
                           
                           list.appendChild(li);
                       });
@@ -455,7 +457,7 @@ const HomeworkCalendar = () => {
                       
                       const event = {
                           id: eventId,
-                          title: `${fag}: ${beskrivelse}`,
+                          title: \`\${fag}: \${beskrivelse}\`,
                           start: deadline,
                           allDay: type === 'aflevering',
                           className: type === 'aflevering' ? 'assignment' : '',
@@ -492,14 +494,14 @@ const HomeworkCalendar = () => {
                   
                   const contentDiv = document.createElement('div');
                   contentDiv.className = 'homework-item';
-                  contentDiv.innerHTML = `
+                  contentDiv.innerHTML = \`
                       <div class="homework-title">
-                          <strong>${event.extendedProps.subject}</strong>: ${event.extendedProps.description}
+                          <strong>\${event.extendedProps.subject}</strong>: \${event.extendedProps.description}
                       </div>
                       <div class="deadline-info">
-                          Deadline: ${event.start.toLocaleString('da-DK')}
+                          Deadline: \${event.start.toLocaleString('da-DK')}
                       </div>
-                  `;
+                  \`;
                   
                   const completeButton = document.createElement('button');
                   completeButton.className = 'complete-btn';
