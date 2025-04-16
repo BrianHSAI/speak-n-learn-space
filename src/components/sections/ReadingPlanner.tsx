@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { CalendarClock } from 'lucide-react';
 import ReadingPlanning from './ReadingPlanning';
 
