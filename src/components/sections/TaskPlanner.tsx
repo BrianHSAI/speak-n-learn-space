@@ -1,11 +1,18 @@
-
 import React from 'react';
+import { FileText } from 'lucide-react';
+import SectionCard from '@/components/ui/section-card';
 
 const TaskPlanner = () => {
   return (
-    <iframe 
-      className="w-full h-[800px] border-0"
-      srcDoc={`<!DOCTYPE html>
+    <SectionCard
+      icon={FileText}
+      title="Opgaveplanlægger"
+      description="Planlæg og organiser dine opgaver"
+    >
+      <div className="flex flex-col gap-4">
+        <iframe 
+          className="w-full h-[800px] border-0"
+          srcDoc={`<!DOCTYPE html>
 <html lang="da">
 <head>
     <meta charset="UTF-8">
