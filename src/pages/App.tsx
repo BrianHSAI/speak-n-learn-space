@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from '@/components/AppSidebar';
@@ -8,6 +7,7 @@ import ReadingTraining from '@/components/sections/ReadingTraining';
 import ReadingPlanner from '@/components/sections/ReadingPlanning';
 import StudentCalendar from '@/components/sections/StudentCalendar';
 import TaskPlanner from '@/components/sections/TaskPlanner';
+import HomeworkCalendar from '@/components/sections/HomeworkCalendar';
 
 const App = () => {
   const [activeSection, setActiveSection] = useState('text-to-speech');
@@ -24,6 +24,8 @@ const App = () => {
         return <ReadingPlanner />;
       case 'student-calendar':
         return <StudentCalendar />;
+      case 'homework-calendar':
+        return <HomeworkCalendar />;
       case 'task-planner':
         return <TaskPlanner />;
       default:

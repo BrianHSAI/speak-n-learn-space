@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Mic, 
@@ -50,6 +49,11 @@ const items = [
     title: "Elevkalender",
     icon: Calendar,
     id: "student-calendar"
+  },
+  {
+    title: "Lektiekalender",
+    icon: Calendar,
+    id: "homework-calendar"
   },
   {
     title: "Opgaveplanlægger",
