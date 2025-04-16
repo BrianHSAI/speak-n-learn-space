@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { FileText } from 'lucide-react';
 import SectionCard from '@/components/ui/section-card';
@@ -711,7 +712,9 @@ const TaskPlanner = () => {
     </script>
 </body>
 </html>`}
-    />
+        />
+      </div>
+    </SectionCard>
   );
 };
 
