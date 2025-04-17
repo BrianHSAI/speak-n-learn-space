@@ -1,5 +1,6 @@
-
 import React, { useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Calendar } from 'lucide-react';
 
 const StudentCalendar = () => {
   useEffect(() => {
@@ -982,8 +983,8 @@ const StudentCalendar = () => {
     function getWeekNumber(date) {
       const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
       const dayNum = d.getUTCDay() || 7;
-      d.setUTCDate(d.getUTCDate() + 4 - dayNum);
-      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      d.setUTCDay(d.getUTCDay() + 4 - dayNum);
+      const yearStart = new Date(Date.UTC(d.getUTCDay(), 0, 1));
       return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
     }
     
@@ -1460,7 +1461,18 @@ const StudentCalendar = () => {
   }, []);
   
   return (
-    <div id="calendar-container" className="h-full"></div>
+    <Card className="w-full shadow-lg border-0">
+      <CardHeader className="flex flex-row items-center gap-4 pb-2">
+        <Calendar size={28} className="text-primary" />
+        <div>
+          <CardTitle className="text-2xl">Elevkalender</CardTitle>
+          <CardDescription>Hold styr på dine aktiviteter og begivenheder</CardDescription>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div id="calendar-container" className="h-full"></div>
+      </CardContent>
+    </Card>
   );
 };
 
