@@ -2,6 +2,8 @@
 import React from 'react';
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from '@/components/AppSidebar';
+import { Button } from "@/components/ui/button";
+import { LogIn } from 'lucide-react';
 
 const Home = () => {
   const activeSection = '';
@@ -13,13 +15,19 @@ const Home = () => {
         
         <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-auto">
           <div className="container mx-auto">
-            <div className="flex items-center mb-8">
-              <SidebarTrigger className="md:hidden" />
-              <img 
-                src="/lovable-uploads/0231c664-6b5c-457c-ae03-bc59f9ae098c.png" 
-                alt="Lærmere.nu Logo" 
-                className="h-24 md:h-32 lg:h-40"
-              />
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center">
+                <SidebarTrigger className="md:hidden" />
+                <img 
+                  src="/lovable-uploads/0231c664-6b5c-457c-ae03-bc59f9ae098c.png" 
+                  alt="Lærmere.nu Logo" 
+                  className="h-24 md:h-32 lg:h-40"
+                />
+              </div>
+              <Button size="lg" className="bg-primary text-white hover:bg-primary/90 shadow-md">
+                <LogIn className="mr-2" size={18} />
+                Login / Opret
+              </Button>
             </div>
             
             <div className="grid grid-cols-1 gap-8">
